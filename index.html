@@ -374,6 +374,38 @@ footer{
     transform:translateY(-6px);
     box-shadow:0 12px 30px rgba(212,175,55,.3);
 }
+    /* CUSTOM SCROLLBAR */
+html{
+    scrollbar-width:thin;                      /* Firefox */
+    scrollbar-color:var(--gold) var(--navy);   /* thumb, track */
+}
+::-webkit-scrollbar{width:12px}                /* Chrome, Edge, Safari */
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(var(--gold-light),var(--gold));
+    border-radius:10px;
+    border:2px solid var(--navy);              /* gives the thumb a slim gap */
+}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-light)}
+    /* MOBILE POLISH */
+section{scroll-margin-top:90px}
+.hero{min-height:100svh}
+input,textarea{font-size:1rem}
+
+/* only apply hover effects on devices that actually hover */
+@media(hover:none){
+    .service-card:hover{transform:none;background:white;color:inherit}
+    .team-card:hover,.testimonial-box:hover{transform:none;box-shadow:none}
+    .team-card:hover img{transform:none}
+}
+
+@media(max-width:768px){
+    section{padding:70px 6%;scroll-margin-top:130px}
+    .section-title{font-size:2rem;margin-bottom:35px}
+    .nav-links{gap:10px 20px}
+    .stats h2{font-size:2rem}
+    .btn{padding:13px 28px}
+}
 </style>
 
 </head>
