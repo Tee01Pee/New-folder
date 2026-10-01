@@ -343,7 +343,37 @@ footer{
     gap:25px;
 }
 }
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0}
+.reveal.show{
+    opacity:1;
+    animation:fadeUp .8s ease backwards;
+    animation-delay:var(--delay,0s);
+}
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(40px)}
+    to{opacity:1;transform:translateY(0)}
+}
 
+/* ATTORNEY CARD HOVER */
+.team-card{transition:transform .4s,box-shadow .4s}
+.team-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(212,175,55,.35);
+}
+.team-card img{transition:transform .6s}
+.team-card:hover img{transform:scale(1.08)}
+
+/* for people who turn animations off */
+@media(prefers-reduced-motion:reduce){
+    .reveal,.reveal.show{opacity:1;animation:none}
+}
+  /* REVIEW CARD HOVER */
+.testimonial-box{transition:transform .4s,box-shadow .4s}
+.testimonial-box:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 30px rgba(212,175,55,.3);
+}
 </style>
 
 </head>
@@ -496,6 +526,27 @@ footer{
 <footer>
     <p>&copy; 2026 Prestige Law Attorneys. All Rights Reserved.</p>
 </footer>
+<script>
+const targets = document.querySelectorAll(
+  '.services .section-title, .service-card, .team .section-title, .team-card, .testimonials .section-title, .testimonial-box'
+);
+targets.forEach(el => el.classList.add('reveal'));
 
+// stagger cards within each grid
+document.querySelectorAll('.service-grid, .team-grid').forEach(grid => {
+  [...grid.children].forEach((card, i) => card.style.setProperty('--delay', i * 0.15 + 's'));
+});
+document.querySelectorAll('.testimonial-box').forEach((box, i) => box.style.setProperty('--delay', i * 0.2 + 's'));
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target); // animate once
+    }
+  });
+}, { threshold: 0.2 });
+
+targets.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
