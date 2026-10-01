@@ -484,18 +484,36 @@ footer{
 <section class="contact" id="contact">
     <h2 class="section-title">Request A Consultation</h2>
 
-    <form>
-        <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email Address">
-        <input type="tel" placeholder="Phone Number">
-        <textarea rows="5" placeholder="Tell us about your case"></textarea>
-        <button type="submit">Send Inquiry</button>
-    </form>
+    <form id="contactForm">
+    <input type="text" name="name" placeholder="Full Name" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <input type="tel" name="phone" placeholder="Phone Number">
+    <textarea name="message" rows="5" placeholder="Tell us about your case" required></textarea>
+    <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+    <button type="submit">Send Inquiry</button>
+    <p id="formStatus" style="color:white;margin-top:15px;text-align:center"></p>
+</form>
 </section>
 
 <footer>
     <p>&copy; 2026 Prestige Law Attorneys. All Rights Reserved.</p>
 </footer>
-
+<script>
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const status = document.getElementById('formStatus');
+  status.textContent = 'Sending...';
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
+    });
+    const data = await res.json();
+    if (data.ok) { status.textContent = 'Thank you! We will be in touch soon.'; e.target.reset(); }
+    else status.textContent = data.error || 'Something went wrong.';
+  } catch { status.textContent = 'Network error. Please try again.'; }
+});
+</script>
 </body>
 </html>
