@@ -397,3 +397,72 @@ input,textarea{font-size:1rem}
     .stats h2{font-size:2rem}
     .btn{padding:13px 28px}
 }
+.contact-icon{
+    width:56px;
+    height:56px;
+    margin:0 auto 14px;
+    border:2px solid var(--gold);
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:.4s;
+}
+
+.contact-icon svg{
+    width:26px;
+    height:26px;
+    fill:none;
+    stroke:var(--gold-light);
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    transition:.4s;
+}
+
+.contact-item:hover .contact-icon{
+    background:var(--gold);
+    transform:translateY(-4px);
+}
+
+.contact-item:hover .contact-icon svg{
+    stroke:var(--navy);
+}
+.contact-details{
+    margin:40px auto 0;
+    padding-top:30px;
+    border-top:1px solid rgba(247,212,107,.35);
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));  /* three equal columns */
+    gap:20px;
+    text-align:center;
+}
+
+.contact-item{
+    min-width:0;
+}
+.contact-item p{
+    color:white;
+    line-height:1.6;
+    font-size:.95rem;
+    margin-bottom:0;
+    overflow-wrap:break-word;
+}
+
+.contact-item a{
+    color:var(--gold-light);
+    text-decoration:none;
+    transition:.3s;
+}
+
+.contact-item a:hover{
+    color:white;
+}
+
+/* Phones and small tablets: three items can't fit in a row, so stack them */
+@media(max-width:900px){
+    .contact-details{
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+}
