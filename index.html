@@ -185,12 +185,13 @@
 <section class="contact" id="contact">
     <h2 class="section-title">Request A Consultation</h2>
 
-    <form>
-        <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email Address">
-        <input type="tel" placeholder="Phone Number">
-        <textarea rows="5" placeholder="Tell us about your case"></textarea>
+    <form id="contact-form">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="tel" name="phone" placeholder="Phone Number">
+        <textarea name="message" rows="5" placeholder="Tell us about your case" required></textarea>
         <button type="submit">Send Inquiry</button>
+        <p id="form-status" role="status"></p>
     </form>
 </section>
 

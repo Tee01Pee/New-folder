@@ -28,3 +28,36 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.2 });
 
 targets.forEach(el => observer.observe(el));
+// Contact form -> Java backend
+const API_URL = 'http://localhost:8080/api/contact';
+const form = document.getElementById('contact-form');
+const statusEl = document.getElementById('form-status');
+
+if (form) {
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const button = form.querySelector('button[type="submit"]');
+    const data = Object.fromEntries(new FormData(form));
+
+    button.disabled = true;
+    statusEl.textContent = 'Sending...';
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (response.ok) {
+        statusEl.textContent = 'Thank you, your inquiry has been sent. We will be in touch soon.';
+        form.reset();
+      } else {
+        statusEl.textContent = 'Sorry, something went wrong. Please check your details and try again.';
+      }
+    } catch (error) {
+      statusEl.textContent = 'Could not reach the server. Please try again later.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+}
